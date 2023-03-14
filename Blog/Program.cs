@@ -1,5 +1,6 @@
 ﻿using System;
 using Blog.Models;
+using Blog.Repositories;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -19,26 +20,32 @@ namespace Blog
 
       }
 
-      public static void ReadUsers() {
-         using (var connection = new SqlConnection(CONNECTION_STRING)) {
-            var users = connection.GetAll<User>();
+      public static void ReadUsers()
+      {
 
-            foreach(var user in users) {
-               Console.WriteLine(user.Name);
-            }
+         var repository = new UserRepository();
+         var users = repository.Get();
+
+         foreach (var user in users)
+         {
+            Console.WriteLine(user.Name);
          }
       }
 
-      public static void ReadUser() { // pegando apenas 1 usuário
-         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+      public static void ReadUser()
+      { // pegando apenas 1 usuário
+         using (var connection = new SqlConnection(CONNECTION_STRING))
+         {
             var user = connection.Get<User>(1);
             Console.WriteLine(user.Name);
          }
       }
 
-      public static void CreateUser() {
+      public static void CreateUser()
+      {
 
-         var user = new User() {
+         var user = new User()
+         {
             // Id não coloquei por que geral automáticamente
             Bio = "Equipe Warley Afonso",
             Email = "warleysilva@gmail.com",
@@ -48,15 +55,18 @@ namespace Blog
             Slug = "warley-teste"
          };
 
-         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+         using (var connection = new SqlConnection(CONNECTION_STRING))
+         {
             connection.Insert<User>(user); // Salva o meu usuário criar no banco de dados
             Console.WriteLine("Cadastro Realizado com sucesso!");
          }
       }
 
-      public static void UpdateUser() {
+      public static void UpdateUser()
+      {
 
-         var user = new User() {
+         var user = new User()
+         {
             Id = 2,
             Bio = "Equipe | Warley Afonso",
             Email = "warleysilva@gmail.com",
@@ -66,15 +76,18 @@ namespace Blog
             Slug = "warley-teste"
          };
 
-         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+         using (var connection = new SqlConnection(CONNECTION_STRING))
+         {
             connection.Update<User>(user); // uso o método Update para alterar o usuário
             Console.WriteLine("Cadastro alterado com sucesso!");
          }
       }
 
-      public static void DeleteUser() {
+      public static void DeleteUser()
+      {
 
-         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+         using (var connection = new SqlConnection(CONNECTION_STRING))
+         {
             var user = connection.Get<User>(2);
             connection.Delete<User>(user); // uso o método Delete para deletar o usuário
             Console.WriteLine("Usuário deletado com sucesso!");
