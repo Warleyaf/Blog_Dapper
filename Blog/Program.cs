@@ -11,6 +11,9 @@ namespace Blog
 
       static void Main(string[] args)
       {
+         //ReadUsers();
+         //ReadUser();
+         CreateUser();
 
       }
 
@@ -21,6 +24,31 @@ namespace Blog
             foreach(var user in users) {
                Console.WriteLine(user.Name);
             }
+         }
+      }
+
+      public static void ReadUser() { // pegando apenas 1 usuário
+         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+            var user = connection.Get<User>(1);
+            Console.WriteLine(user.Name);
+         }
+      }
+
+      public static void CreateUser() {
+
+         var user = new User() {
+            // Id não coloquei por que geral automáticamente
+            Bio = "Equipe Warley Afonso",
+            Email = "warleysilva@gmail.com",
+            Image = "https://....",
+            Name = "Equipe Warley.IO",
+            PasswordHash = "HASH",
+            Slug = "warley-teste"
+         };
+
+         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+            connection.Insert<User>(user);
+            Console.WriteLine("Cadastro Realizado com sucesso!");
          }
       }
    }
