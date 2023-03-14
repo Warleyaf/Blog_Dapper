@@ -14,7 +14,8 @@ namespace Blog
          //ReadUsers();
          //ReadUser();
          //CreateUser();
-         UpdateUser();
+         //UpdateUser();
+         DeleteUser();
 
       }
 
@@ -68,6 +69,15 @@ namespace Blog
          using (var connection = new SqlConnection(CONNECTION_STRING)) {
             connection.Update<User>(user); // uso o método Update para alterar o usuário
             Console.WriteLine("Cadastro alterado com sucesso!");
+         }
+      }
+
+      public static void DeleteUser() {
+
+         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+            var user = connection.Get<User>(2);
+            connection.Delete<User>(user); // uso o método Delete para deletar o usuário
+            Console.WriteLine("Usuário deletado com sucesso!");
          }
       }
    }
