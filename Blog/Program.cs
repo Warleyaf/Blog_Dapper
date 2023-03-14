@@ -13,7 +13,8 @@ namespace Blog
       {
          //ReadUsers();
          //ReadUser();
-         CreateUser();
+         //CreateUser();
+         UpdateUser();
 
       }
 
@@ -47,8 +48,26 @@ namespace Blog
          };
 
          using (var connection = new SqlConnection(CONNECTION_STRING)) {
-            connection.Insert<User>(user);
+            connection.Insert<User>(user); // Salva o meu usuário criar no banco de dados
             Console.WriteLine("Cadastro Realizado com sucesso!");
+         }
+      }
+
+      public static void UpdateUser() {
+
+         var user = new User() {
+            Id = 2,
+            Bio = "Equipe | Warley Afonso",
+            Email = "warleysilva@gmail.com",
+            Image = "https://....",
+            Name = "Equipe suporte Warley.IO",
+            PasswordHash = "HASH",
+            Slug = "warley-teste"
+         };
+
+         using (var connection = new SqlConnection(CONNECTION_STRING)) {
+            connection.Update<User>(user); // uso o método Update para alterar o usuário
+            Console.WriteLine("Cadastro alterado com sucesso!");
          }
       }
    }
