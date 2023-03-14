@@ -27,14 +27,12 @@ namespace Blog
          var users = repository.Get();
 
          foreach (var user in users)
-         {
-            Console.WriteLine(user.Name);
-         }
+            Console.WriteLine(user.Name); // quando tenho apenas 1 linha dentro da "chaves" eu posso remover elas
       }
 
       public static void ReadUser()
       { // pegando apenas 1 usuário
-         using (var connection = new SqlConnection(CONNECTION_STRING))
+         using (var connection = new SqlConnection())
          {
             var user = connection.Get<User>(1);
             Console.WriteLine(user.Name);
@@ -55,7 +53,7 @@ namespace Blog
             Slug = "warley-teste"
          };
 
-         using (var connection = new SqlConnection(CONNECTION_STRING))
+         using (var connection = new SqlConnection())
          {
             connection.Insert<User>(user); // Salva o meu usuário criar no banco de dados
             Console.WriteLine("Cadastro Realizado com sucesso!");
@@ -76,7 +74,7 @@ namespace Blog
             Slug = "warley-teste"
          };
 
-         using (var connection = new SqlConnection(CONNECTION_STRING))
+         using (var connection = new SqlConnection())
          {
             connection.Update<User>(user); // uso o método Update para alterar o usuário
             Console.WriteLine("Cadastro alterado com sucesso!");
@@ -86,7 +84,7 @@ namespace Blog
       public static void DeleteUser()
       {
 
-         using (var connection = new SqlConnection(CONNECTION_STRING))
+         using (var connection = new SqlConnection())
          {
             var user = connection.Get<User>(2);
             connection.Delete<User>(user); // uso o método Delete para deletar o usuário
