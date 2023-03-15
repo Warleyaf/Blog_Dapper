@@ -12,18 +12,21 @@ namespace Blog
 
       static void Main(string[] args)
       {
+         var connection = new SqlConnection(CONNECTION_STRING);
+         connection.Open();
          //ReadUsers();
          //ReadUser();
          //CreateUser();
          //UpdateUser();
          DeleteUser();
+         connection.Close();
 
       }
 
-      public static void ReadUsers()
+      public static void ReadUsers(SqlConnection connection)
       {
 
-         var repository = new UserRepository();
+         var repository = new UserRepository(connection);
          var users = repository.Get();
 
          foreach (var user in users)
