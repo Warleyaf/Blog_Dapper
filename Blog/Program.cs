@@ -1,6 +1,7 @@
 ﻿using System;
 using Blog.Models;
 using Blog.Repositories;
+using Blog.RoleRepositories;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -14,11 +15,12 @@ namespace Blog
       {
          var connection = new SqlConnection(CONNECTION_STRING);
          connection.Open();
-         //ReadUsers();
-         //ReadUser();
-         //CreateUser();
-         //UpdateUser();
-         DeleteUser();
+            ReadUsers(connection);
+            ReadRoles(connection);
+            //ReadUser();
+            //CreateUser();
+            //UpdateUser();
+            //DeleteUser();
          connection.Close();
 
       }
@@ -33,66 +35,14 @@ namespace Blog
             Console.WriteLine(user.Name); // quando tenho apenas 1 linha dentro da "chaves" eu posso remover elas
       }
 
-      public static void ReadUser()
-      { // pegando apenas 1 usuário
-         using (var connection = new SqlConnection())
-         {
-            var user = connection.Get<User>(1);
-            Console.WriteLine(user.Name);
-         }
-      }
-
-      public static void CreateUser()
+      public static void ReadRoles(SqlConnection connection)
       {
 
-         var user = new User()
-         {
-            // Id não coloquei por que geral automáticamente
-            Bio = "Equipe Warley Afonso",
-            Email = "warleysilva@gmail.com",
-            Image = "https://....",
-            Name = "Equipe Warley.IO",
-            PasswordHash = "HASH",
-            Slug = "warley-teste"
-         };
+         var repository = new RoleRepository(connection);
+         var roles = repository.Get();
 
-         using (var connection = new SqlConnection())
-         {
-            connection.Insert<User>(user); // Salva o meu usuário criar no banco de dados
-            Console.WriteLine("Cadastro Realizado com sucesso!");
-         }
-      }
-
-      public static void UpdateUser()
-      {
-
-         var user = new User()
-         {
-            Id = 2,
-            Bio = "Equipe | Warley Afonso",
-            Email = "warleysilva@gmail.com",
-            Image = "https://....",
-            Name = "Equipe suporte Warley.IO",
-            PasswordHash = "HASH",
-            Slug = "warley-teste"
-         };
-
-         using (var connection = new SqlConnection())
-         {
-            connection.Update<User>(user); // uso o método Update para alterar o usuário
-            Console.WriteLine("Cadastro alterado com sucesso!");
-         }
-      }
-
-      public static void DeleteUser()
-      {
-
-         using (var connection = new SqlConnection())
-         {
-            var user = connection.Get<User>(2);
-            connection.Delete<User>(user); // uso o método Delete para deletar o usuário
-            Console.WriteLine("Usuário deletado com sucesso!");
-         }
+         foreach (var role in roles)
+            Console.WriteLine(role.Name);
       }
    }
 }
