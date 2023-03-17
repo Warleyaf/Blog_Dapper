@@ -22,7 +22,7 @@ namespace Blog.Repositories
          => _connection.Insert<T>(model);
 
       public void Update(T model)
-         => _connection.Insert<T>(model); // isso aqui se chama "Expression body"
+         => _connection.Update<T>(model); // isso aqui se chama "Expression body"
 
       public void Delete(T model)
          => _connection.Delete<T>(model);

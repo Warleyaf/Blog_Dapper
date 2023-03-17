@@ -21,12 +21,13 @@ namespace Blog
             //CreateUser(connection);
             //CreateRoles(connection);
             //CreateTags(connection);
-            CreateCategorys(connection);
+            //CreateCategorys(connection);
+            UpdateUser(connection);
             
          connection.Close();
 
       }
-
+      // Métodos de Leituras
       public static void ReadUsers(SqlConnection connection)
       {
 
@@ -62,6 +63,8 @@ namespace Blog
          var user = repository.Get(1002);
          Console.WriteLine(user.Email);
       }
+      
+      // Métodos de Create
 
       public static void CreateUser(SqlConnection connection) {
          var repository = new Repository<User>(connection);
@@ -77,7 +80,6 @@ namespace Blog
          repository.Create(user);
          Console.WriteLine("Usuário inserido com sucesso!!");
       }
-
       public static void CreateRoles(SqlConnection connection) {
          var repository = new Repository<Role>(connection);
 
@@ -113,6 +115,26 @@ namespace Blog
 
          Console.WriteLine("Categoria criada com sucesso!!");
       }
+      
+      // Métodos de Update
+
+      public static void UpdateUser(SqlConnection connection) {
+         var repository = new Repository<User>(connection);
+
+         var users = new User() {
+            Id = 1002,
+            Name = "Launa Afonso",
+            Email = "LauanaAfonso@gmail.com",
+            PasswordHash = "Hashmybrother",
+            Bio = "O mvmaster",
+            Image = "https://warleyfonsoimg",
+            Slug = "Warley O Braboo"
+         };
+
+         repository.Update(users);
+         Console.WriteLine("Usuário alterado com sucesso!!");
+      }
+
 
 
 
