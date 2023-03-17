@@ -14,16 +14,17 @@ namespace Blog
       {
          var connection = new SqlConnection(CONNECTION_STRING);
          connection.Open();
-            //ReadUsers(connection);
-            //ReadRoles(connection);
-            //ReadTags(connection);
-            //ReadUser(connection);
-            //CreateUser(connection);
-            //CreateRoles(connection);
-            //CreateTags(connection);
-            //CreateCategorys(connection);
-            UpdateUser(connection);
-            
+         //ReadUsers(connection);
+         //ReadRoles(connection);
+         //ReadTags(connection);
+         //ReadUser(connection);
+         //CreateUser(connection);
+         //CreateRoles(connection);
+         //CreateTags(connection);
+         //CreateCategorys(connection);
+         //UpdateUser(connection);
+         DeleteUser(connection);
+
          connection.Close();
 
       }
@@ -58,17 +59,20 @@ namespace Blog
             Console.WriteLine(item.Name);
       }
 
-      public static void ReadUser(SqlConnection connection) {
+      public static void ReadUser(SqlConnection connection)
+      {
          var repository = new Repository<User>(connection);
          var user = repository.Get(1002);
          Console.WriteLine(user.Email);
       }
-      
+
       // Métodos de Create
 
-      public static void CreateUser(SqlConnection connection) {
+      public static void CreateUser(SqlConnection connection)
+      {
          var repository = new Repository<User>(connection);
-         var user = new User() {
+         var user = new User()
+         {
             Bio = "Jao",
             Email = "Jao@gmail.com",
             Image = "https:// jaoimg",
@@ -80,10 +84,12 @@ namespace Blog
          repository.Create(user);
          Console.WriteLine("Usuário inserido com sucesso!!");
       }
-      public static void CreateRoles(SqlConnection connection) {
+      public static void CreateRoles(SqlConnection connection)
+      {
          var repository = new Repository<Role>(connection);
 
-         var roles = new Role() {
+         var roles = new Role()
+         {
             Name = "Suporte Ti",
             Slug = "Ajuda Usuário"
          };
@@ -92,10 +98,12 @@ namespace Blog
          Console.WriteLine("Usuário criado com sucesso!");
 
       }
-      public static void CreateTags(SqlConnection connection) {
+      public static void CreateTags(SqlConnection connection)
+      {
          var repository = new Repository<Tag>(connection);
 
-         var tags = new Tag() {
+         var tags = new Tag()
+         {
             Name = "React",
             Slug = "React Front-end"
          };
@@ -103,10 +111,12 @@ namespace Blog
          repository.Create(tags);
          Console.WriteLine("Tag criada com sucesso!!");
       }
-      public static void CreateCategorys(SqlConnection connection){
+      public static void CreateCategorys(SqlConnection connection)
+      {
          var repository = new Repository<Category>(connection);
 
-         var categorys = new Category() {
+         var categorys = new Category()
+         {
             Name = "Fullstack",
             Slug = "Tudo sobre Fullstack"
          };
@@ -115,13 +125,15 @@ namespace Blog
 
          Console.WriteLine("Categoria criada com sucesso!!");
       }
-      
+
       // Métodos de Update
 
-      public static void UpdateUser(SqlConnection connection) {
+      public static void UpdateUser(SqlConnection connection)
+      {
          var repository = new Repository<User>(connection);
 
-         var users = new User() {
+         var users = new User()
+         {
             Id = 1002,
             Name = "Launa Afonso",
             Email = "LauanaAfonso@gmail.com",
@@ -135,6 +147,17 @@ namespace Blog
          Console.WriteLine("Usuário alterado com sucesso!!");
       }
 
+      // Método Delete
+      public static void DeleteUser(SqlConnection connection)
+      {
+         var repository = new Repository<User>(connection);
+         var users = new User() {
+            Id = 1003,
+         };
+
+         repository.Delete(users);
+         Console.WriteLine("Usuário deletado com sucesso!!");
+      }
 
 
 
