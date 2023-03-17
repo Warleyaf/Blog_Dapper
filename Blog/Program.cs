@@ -20,7 +20,8 @@ namespace Blog
             //ReadUser(connection);
             //CreateUser(connection);
             //CreateRoles(connection);
-            CreateTags(connection);
+            //CreateTags(connection);
+            CreateCategorys(connection);
             
          connection.Close();
 
@@ -100,7 +101,18 @@ namespace Blog
          repository.Create(tags);
          Console.WriteLine("Tag criada com sucesso!!");
       }
+      public static void CreateCategorys(SqlConnection connection){
+         var repository = new Repository<Category>(connection);
 
+         var categorys = new Category() {
+            Name = "Fullstack",
+            Slug = "Tudo sobre Fullstack"
+         };
+
+         repository.Create(categorys);
+
+         Console.WriteLine("Categoria criada com sucesso!!");
+      }
 
 
 
