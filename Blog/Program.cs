@@ -19,7 +19,8 @@ namespace Blog
             //ReadTags(connection);
             //ReadUser(connection);
             //CreateUser(connection);
-            CreateRoles(connection);
+            //CreateRoles(connection);
+            CreateTags(connection);
             
          connection.Close();
 
@@ -80,14 +81,37 @@ namespace Blog
          var repository = new Repository<Role>(connection);
 
          var roles = new Role() {
-            Name = "Administrador",
-            Slug = "Adimistra empresa"
+            Name = "Suporte Ti",
+            Slug = "Ajuda Usuário"
          };
 
          repository.Create(roles);
          Console.WriteLine("Usuário criado com sucesso!");
 
       }
+      public static void CreateTags(SqlConnection connection) {
+         var repository = new Repository<Tag>(connection);
+
+         var tags = new Tag() {
+            Name = "React",
+            Slug = "React Front-end"
+         };
+
+         repository.Create(tags);
+         Console.WriteLine("Tag criada com sucesso!!");
+      }
+
+
+
+
+
+
+
+
+
+
+
+
 
    }
 }
