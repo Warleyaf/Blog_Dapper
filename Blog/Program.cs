@@ -18,7 +18,8 @@ namespace Blog
             //ReadRoles(connection);
             //ReadTags(connection);
             //ReadUser(connection);
-            CreateUser(connection);
+            //CreateUser(connection);
+            CreateRoles(connection);
             
          connection.Close();
 
@@ -75,7 +76,18 @@ namespace Blog
          Console.WriteLine("Usuário inserido com sucesso!!");
       }
 
-      
+      public static void CreateRoles(SqlConnection connection) {
+         var repository = new Repository<Role>(connection);
+
+         var roles = new Role() {
+            Name = "Administrador",
+            Slug = "Adimistra empresa"
+         };
+
+         repository.Create(roles);
+         Console.WriteLine("Usuário criado com sucesso!");
+
+      }
 
    }
 }
