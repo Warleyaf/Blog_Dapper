@@ -23,7 +23,8 @@ namespace Blog
          //CreateTags(connection);
          //CreateCategorys(connection);
          //UpdateUser(connection);
-         DeleteUser(connection);
+         //DeleteUser(connection);
+         ReadUsersWithRoles(connection);
 
          connection.Close();
 
@@ -73,12 +74,12 @@ namespace Blog
          var repository = new Repository<User>(connection);
          var user = new User()
          {
-            Bio = "Jao",
-            Email = "Jao@gmail.com",
+            Bio = "Justino",
+            Email = "Justino@gmail.com",
             Image = "https:// jaoimg",
-            Name = "jao gótico",
+            Name = "justino gótico",
             PasswordHash = "HASH6",
-            Slug = "jaozito",
+            Slug = "justizitos",
          };
 
          repository.Create(user);
@@ -151,7 +152,8 @@ namespace Blog
       public static void DeleteUser(SqlConnection connection)
       {
          var repository = new Repository<User>(connection);
-         var users = new User() {
+         var users = new User()
+         {
             Id = 1003,
          };
 
@@ -160,7 +162,21 @@ namespace Blog
       }
 
 
+      public static void ReadUsersWithRoles(SqlConnection connection)
+      {
 
+         var repository = new UserRepository(connection);
+         var items = repository.GetWithRoles();
+
+         foreach (var item in items)
+         {
+            Console.WriteLine(item.Name); // quando tenho apenas 1 linha dentro da "chaves" eu posso remover elas
+            foreach (var role in item.Roles) {
+               Console.WriteLine($" - {role.Name}");
+            }
+         }
+
+      }
 
 
 

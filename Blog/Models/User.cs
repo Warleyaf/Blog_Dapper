@@ -13,6 +13,7 @@ namespace Blog.Models
         public string Bio { get; set; }
         public string Image { get; set; }
         public string Slug { get; set; }
+        [Write(false)]
         public List<Role> Roles { get; set; } // aqui eu vou ter uma lista de Roles, ou seja, no meu usuário eu posso ter vários Roles
 
         public User() {
